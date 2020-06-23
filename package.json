@@ -1,0 +1,15 @@
+{
+  "name": "megumin-gearscore-bot",
+  "version": "1.0.0",
+  "description": "Creating a bot for Megumin for keeping track of gearscores",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nate Tan",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "winston": "^3.3.3"
+  }
+}
