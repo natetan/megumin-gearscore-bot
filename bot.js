@@ -36,7 +36,7 @@ const token = process.env.token || require('./auth.json')['token'];
 client.login(token);
 
 const defaultChannel = process.env.welcome_channel || require('./auth.json').bot_test_general_channel_id;
-const prefix = process.env.prefix ? '!' : '?';
+const prefix = process.env.prefix ? process.env.prefix : '?';
 
 /**
  * The setup for when the bot launches 
