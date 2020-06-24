@@ -45,8 +45,8 @@ client.on('ready', () => {
   logger.info('Connected');
   logger.info(`Client ID: ${client.user.id}`);
   logger.info(client.user.tag);
-  logger.info(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
-  client.user.setActivity(`Serving ${client.guilds.size} servers`);
+  logger.info(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
+  client.user.setActivity(`Serving ${client.guilds.cache.size} servers`);
 });
 
 client.on('guildMemberAdd', member => {

@@ -2,7 +2,7 @@ const db = require('../db/gearscoredb');
 
 module.exports = {
   name: 'gs',
-  desc: 'gets a player\'s gs, which is ap + dp',
+  desc: 'gets a player\'s gs, which is (ap + awk) / 2 + dp',
   usage: '[number]',
   commandType: 'general',
   async execute(message, args, client) {
