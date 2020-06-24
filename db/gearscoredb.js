@@ -24,7 +24,8 @@ const set = async (user, key, value) => {
       ref.set({
         username: user.username,
         ap: 0,
-        dp: 0
+        dp: 0,
+        awk: 0
       });
     }
     ref.update({ [key]: value });

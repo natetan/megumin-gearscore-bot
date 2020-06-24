@@ -35,6 +35,9 @@ const logger = createLogger({
 const token = process.env.token || require('./auth.json')['token'];
 client.login(token);
 
+const defaultChannel = process.env.troll_channel_id || require('./auth.json').bot_test_general_channel_id;
+const prefix = process.env.prefix ? '!' : '?';
+
 /**
  * The setup for when the bot launches 
  */
@@ -46,9 +49,12 @@ client.on('ready', () => {
   client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
 
-client.on('message', async message => {
-  const prefix = process.env.prefix ? '!' : '?';
+client.on('guildMemberAdd', member => {
+  const welcome = `Welcome <@${member.user.id}>! You can set your gearscore with \`${prefix}ap\`, \`${prefix}dp\`, and \`${prefix}awk\`.\nExample: \`${prefix}ap 200\``;
+  member.guild.channels.cache.get(defaultChannel).send(welcome);
+});
 
+client.on('message', async message => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop called 'botception'
   if (message.author.bot) return;

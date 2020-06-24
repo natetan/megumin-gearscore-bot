@@ -1,8 +1,8 @@
 const db = require('../db/gearscoredb');
 
 module.exports = {
-  name: 'dp',
-  desc: 'gets or sets a player\'s dp',
+  name: 'awk',
+  desc: 'gets or sets a player\'s awk',
   usage: '[number]',
   commandType: 'general',
   async execute(message, args, client) {
@@ -13,19 +13,19 @@ module.exports = {
         const min = 0;
         const max = 500;
         if (amount < min || amount > max) {
-          return message.reply(`The DP provided must be between ${min} and ${max}`);
+          return message.reply(`The AWK provided must be between ${min} and ${max}`);
         }
-        const success = await db.set(user, 'dp', amount);
+        const success = await db.set(user, 'awk', amount);
         if (success) {
-          return message.reply(`your DP has been successfully set to ${amount}.`);
+          return message.reply(`your AWK has been successfully set to ${amount}.`);
         } else {
           return message.reply('sorry, there was an error.');
         }
       }
-      const dp = await db.get(message.author, 'dp');
-      return message.reply(`your DP is ${dp}.`);
+      const awk = await db.get(message.author, 'awk');
+      return message.reply(`your awk is ${awk}.`);
     } catch (err) {
-      console.log(`ERROR: Command <dp> failed.\n\tMessage: [${message}]\n\tError: [${err}]`);
+      console.log(`ERROR: Command <awk> failed.\n\tMessage: [${message}]\n\tError: [${err}]`);
     }
   }
 }
