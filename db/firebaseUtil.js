@@ -19,10 +19,16 @@ const db = admin.database();
 const set = async (user, key, value) => {
   try {
     let ref = db.ref(`users/${user.id}`);
-    if (!exists(user)) {
-      ref.set({});
+    let userExists = await exists(user);
+    if (!userExists) {
+      ref.set({
+        username: user.username,
+        ap: 0,
+        dp: 0
+      });
     }
     ref.update({ [key]: value });
+    return value;
   } catch (err) {
     console.log(`Error in set: ${err}`);
     return null;
@@ -32,13 +38,13 @@ const set = async (user, key, value) => {
 const get = async (user, key) => {
   try {
     let ref = db.ref(`users/${user.id}`);
+    let obj = null;
     await ref.once('value', snapshot => {
-      let obj = snapshot.val();
-      return obj[key];
+      obj = snapshot.val();
     }, (err) => {
-      console.log(`Error with get: ${user.username} (${user.id}): ${key}`);
+      console.log(`Error with get: ${user.username} (${user.id}): ${err}`);
     });
-    return obj;
+    return obj[key];
   } catch (err) {
     console.log(`Firebase error: ${err}`);
     return null;
