@@ -35,7 +35,7 @@ const logger = createLogger({
 const token = process.env.token || require('./auth.json')['token'];
 client.login(token);
 
-const defaultChannel = process.env.troll_channel_id || require('./auth.json').bot_test_general_channel_id;
+const defaultChannel = process.env.welcome_channel || require('./auth.json').bot_test_general_channel_id;
 const prefix = process.env.prefix ? '!' : '?';
 
 /**
