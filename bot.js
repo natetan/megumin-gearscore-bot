@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const { createLogger, format, transports } = require('winston');
 const fs = require('fs');
 
+const displayUtils = require('./utils/displayUtils');
+
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
@@ -50,7 +52,8 @@ client.on('ready', () => {
 });
 
 client.on('guildMemberAdd', member => {
-  const welcome = `Welcome <@${member.user.id}>! You can set your gearscore with \`${prefix}ap\`, \`${prefix}dp\`, and \`${prefix}awk\`.\nExample: \`${prefix}ap 200\``;
+  const greetings = require('./resources/greetings.json');
+  const welcome = displayUtils.getRandom(greetings);
   member.guild.channels.cache.get(defaultChannel).send(welcome);
 });
 
