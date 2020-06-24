@@ -59,7 +59,7 @@ client.on('message', async message => {
   // and not get into a spam loop called 'botception'
   if (message.author.bot) return;
 
-  if (!message.content.startsWith(prefix)) return;
+  if (!message.content.toLowerCase().startsWith(prefix)) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
