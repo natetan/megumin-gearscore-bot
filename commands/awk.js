@@ -22,7 +22,7 @@ module.exports = {
           return message.reply('sorry, there was an error.');
         }
       }
-      const awk = await db.get(message.author, 'awk');
+      const awk = await db.getUserProperty(message.author, 'awk');
       return message.reply(`your awk is ${awk}.`);
     } catch (err) {
       console.log(`ERROR: Command <awk> failed.\n\tMessage: [${message}]\n\tError: [${err}]`);

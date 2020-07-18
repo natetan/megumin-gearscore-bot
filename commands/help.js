@@ -1,4 +1,4 @@
-const eu = require('../utils/embedUtil');
+const eu = require('../utils/embedUtils');
 
 module.exports = {
   name: 'help',
@@ -23,7 +23,7 @@ module.exports = {
       commandObj[c.name] = obj;
     });
 
-    const embed = eu.createGeneralHelpEmbed(commandObj);
+    const embed = eu.createGeneralHelp(commandObj);
     return message.channel.send(embed);
   }
 }

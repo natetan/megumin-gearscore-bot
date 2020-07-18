@@ -22,7 +22,7 @@ module.exports = {
           return message.reply('sorry, there was an error.');
         }
       }
-      const dp = await db.get(message.author, 'dp');
+      const dp = await db.getUserProperty(message.author, 'dp');
       return message.reply(`your DP is ${dp}.`);
     } catch (err) {
       console.log(`ERROR: Command <dp> failed.\n\tMessage: [${message}]\n\tError: [${err}]`);

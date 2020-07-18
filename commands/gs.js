@@ -1,4 +1,5 @@
 const db = require('../db/gearscoredb');
+const displayUtils = require('../utils/displayUtils');
 
 module.exports = {
   name: 'gs',
@@ -7,10 +8,11 @@ module.exports = {
   commandType: 'general',
   async execute(message, args, client) {
     try {
-      const ap = await db.get(message.author, 'ap');
-      const dp = await db.get(message.author, 'dp');
-      const awk = await db.get(message.author, 'awk');
-      const gs = Math.round((ap + awk) / 2.00) + dp;
+      const ap = await db.getUserProperty(message.author, 'ap');
+      const dp = await db.getUserProperty(message.author, 'dp');
+      const awk = await db.getUserProperty(message.author, 'awk');
+      const gs = displayUtils.getGs(ap, dp, awk);
+
       if (gs >= 0) {
         return message.reply(`your gs is ${gs}.`);
       } else {

@@ -36,14 +36,21 @@ const set = async (user, key, value) => {
   }
 };
 
-const get = async (user, key) => {
+/**
+ * 
+ * @param {Object} user Discord User object
+ * @param {Object} key key to look for  
+ * 
+ * @returns {Object} the value of the key
+ */
+const getUserProperty = async (user, key) => {
   try {
     let ref = db.ref(`users/${user.id}`);
     let obj = null;
     await ref.once('value', snapshot => {
       obj = snapshot.val();
-    }, (err) => {
-      console.log(`Error with get: ${user.username} (${user.id}): ${err}`);
+    }, err => {
+      console.log(`Error with getUserProperty: ${user.username} (${user.id}): ${err}`);
     });
     return obj[key];
   } catch (err) {
@@ -52,8 +59,28 @@ const get = async (user, key) => {
   }
 };
 
-const $delete = async (user, key) => {
-
+/**
+ * Gets a list of all the users
+ * 
+ * @returns {Array} list of users
+ */
+const getUsers = async () => {
+  try {
+    const ref = db.ref(`users`);
+    let obj;
+    await ref.once('value', snapshot => {
+      obj = snapshot.val();
+    }, err => {
+      console.log(`Error with getUsers; ${err}`)
+    });
+    let arr = [];
+    Object.keys(obj).forEach(key => {
+      arr.push(obj[key]);
+    })
+    return arr;
+  } catch (err) {
+    console.log(`Firebase error: ${err}`);
+  }
 }
 
 const exists = async user => {
@@ -70,7 +97,7 @@ const exists = async user => {
 
 module.exports = {
   set,
-  get,
-  $delete,
+  getUserProperty,
+  getUsers,
   exists
 }
