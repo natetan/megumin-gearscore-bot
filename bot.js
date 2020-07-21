@@ -71,6 +71,8 @@ client.on('message', async message => {
 
   const command = client.commands.get(commandName);
 
+  logger.info(`Command: ${command}. Message: ${message.content}. Author: ${message.author}`);
+
   // Whenever we set args to true in one of our command files, 
   // it'll perform this check and supply feedback if necessary.
   if (command.args && !args.length) {
