@@ -2,19 +2,29 @@
  * Utility class to create Discord Embeds
  */
 
- const Discord = require('discord.js');
- const prefix = process.env.prefix || '?';
+const Discord = require('discord.js');
+const prefix = process.env.prefix || '?';
 
- const createGeneralHelp = commands => {
+const createGeneralHelp = commands => {
   let desc = '`[param]` = optional\n`<param>` = required\n';
   let embed = new Discord.MessageEmbed()
-    .setColor('#ff6600')
+    .setColor('#93e9be')
     .setTitle('General Commands')
-    .setDescription(desc);
-  let generalCommands = Object.keys(commands);
+    .setDescription(desc)
+  let generalCommands = Object.keys(commands.general);
   generalCommands.forEach((c) => {
-    let usage = commands[c].usage ? commands[c].usage : '';
-    embed.addField(`**${c}** - *${commands[c].desc}*`, `\`${prefix}${c} ${usage}\`\n`);
+    embed.addField(`**${c}** - *${commands.general[c].desc}*`, `\`${prefix}${c} ${commands.general[c].usage}\`\n`);
+  });
+  return embed;
+}
+
+const createSpecializedHelp = commands => {
+  let embed = new Discord.MessageEmbed()
+    .setColor('#93e9be')
+    .setTitle('Specialized Commands')
+  let specializedCommands = Object.keys(commands.specialized);
+  specializedCommands.forEach((c) => {
+    embed.addField(`${c} - ${commands.specialized[c].desc}`, commands.specialized[c].options);
   });
   return embed;
 }
@@ -25,7 +35,7 @@ const createGsRanking = list => {
     desc += `${i.rank}. ${i.name} - ${i.gs}\n`
   });
   const embed = new Discord.MessageEmbed()
-    .setColor('#ff6600')
+    .setColor('#93e9be')
     .setTitle('Gearscore Top 10 Ranking')
     .setDescription(desc);
   return embed;
@@ -33,5 +43,6 @@ const createGsRanking = list => {
 
 module.exports = {
   createGeneralHelp,
+  createSpecializedHelp,
   createGsRanking
 }

@@ -27,7 +27,6 @@ const logFormat = format.printf(info => {
 const logger = createLogger({
   transports: [
     new transports.Console({
-      // level: level,
       format: format.combine(format.colorize(), logFormat)
     })
   ]
@@ -71,7 +70,13 @@ client.on('message', async message => {
 
   const command = client.commands.get(commandName);
 
-  logger.info(`Command: ${command.name}. Message: ${message.content}. Author: ${message.author.username}`);
+  const commandLog = {
+    command: command.name,
+    message: message.content,
+    sender: message.author.username
+  }
+
+  logger.info(JSON.stringify(commandLog));
 
   // Whenever we set args to true in one of our command files, 
   // it'll perform this check and supply feedback if necessary.
