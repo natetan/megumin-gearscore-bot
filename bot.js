@@ -56,6 +56,12 @@ client.on('guildMemberAdd', member => {
   member.guild.channels.cache.get(defaultChannel).send(welcome);
 });
 
+client.on('guildMemberRemove', member => {
+  let farewell = `${member.user.username} has left the guild.`;
+  logger.info(farewell);
+  member.guild.channels.cache.get(defaultChannel).send(farewell);
+})
+
 client.on('message', async message => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop called 'botception'
