@@ -83,6 +83,17 @@ const getUsers = async () => {
   }
 }
 
+const deleteUser = async userId => {
+  try {
+    const ref = db.ref(`users/${userId}`);
+    await ref.remove();
+    return true;
+  } catch (err) {
+    console.log(`Firebase error on deleteUser: ${err}`);
+    return false;
+  }
+}
+
 const exists = async user => {
   try {
     let ref = db.ref(`users/${user.id}`);
@@ -99,5 +110,6 @@ module.exports = {
   set,
   getUserProperty,
   getUsers,
-  exists
+  exists,
+  deleteUser,
 }

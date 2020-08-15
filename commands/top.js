@@ -3,10 +3,20 @@ const displayUtils = require('../utils/displayUtils');
 const embedUtils = require('../utils/embedUtils');
 
 module.exports = {
-  name: 'top10',
-  desc: 'Get\'s the top 10 gs scores',
+  name: 'top',
+  desc: 'Get\'s the top x gs scores',
+  usage: ['number'],
   commandType: 'general',
   async execute(message, args, client) {
+    let number = Number(args[0]);
+    const low = 1;
+    const high = 50;
+    if (!number) {
+      number = 10;
+    }
+    if (number < low || number > high) {
+      return message.reply(`the number must be between ${low} and ${high} (inclusive).`)
+    }
     try {
       let users = await db.getUsers();
       users.sort((a, b) => {
@@ -21,7 +31,7 @@ module.exports = {
           rank: index + 1
         };
       });
-      const embed = embedUtils.createGsRanking(users.slice(0, 10));
+      const embed = embedUtils.createGsRanking(users.slice(0, number));
       return message.channel.send(embed);
     } catch (err) {
       console.log(`ERROR: Command <top10> failed.\n\tMessage: [${message}]\n\tError: [${err}]`);

@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const { createLogger, format, transports } = require('winston');
 const fs = require('fs');
 
+const db = require('./db/gearscoredb');
 const displayUtils = require('./utils/displayUtils');
 
 const client = new Discord.Client();
@@ -60,6 +61,7 @@ client.on('guildMemberRemove', member => {
   let farewell = `${member.user.username} has left the guild.`;
   logger.info(farewell);
   member.guild.channels.cache.get(defaultChannel).send(farewell);
+  db.deleteUser(member.id);
 })
 
 client.on('message', async message => {

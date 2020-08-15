@@ -36,7 +36,7 @@ const createGsRanking = list => {
   });
   const embed = new Discord.MessageEmbed()
     .setColor('#93e9be')
-    .setTitle('Gearscore Top 10 Ranking')
+    .setTitle(`Gearscore Top ${list.length} Ranking`)
     .setDescription(desc);
   return embed;
 }

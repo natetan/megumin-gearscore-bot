@@ -38,6 +38,20 @@ const getUsernames = (message) => {
   return usernames;
 }
 
+const getUserIdFromMention = (mention, client) => {
+	if (!mention) return;
+
+	if (mention.startsWith('<@') && mention.endsWith('>')) {
+		mention = mention.slice(2, -1);
+
+		if (mention.startsWith('!')) {
+			mention = mention.slice(1);
+		}
+
+		return mention;
+	}
+}
+
 /**
  * Deletes messages from a given channel
  * 
@@ -58,5 +72,6 @@ const deleteMessages = async (client, channelId, limit) => {
 module.exports = {
   getAvatars,
   getUsernames,
-  deleteMessages
+  deleteMessages,
+  getUserIdFromMention
 }
