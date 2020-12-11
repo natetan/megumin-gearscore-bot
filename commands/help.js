@@ -55,7 +55,7 @@ module.exports = {
       await channel.send(generalEmbed);
       return channel.send(specialEmbed);
     } catch (err) {
-      console.log(`ERROR: Command <halp> failed.\n\tMessage: [${message}]\n\tError: [${err}]`);
+      console.log(`ERROR: Command <help> failed.\n\tMessage: [${message}]\n\tError: [${err}]`);
       message.channel.send('There was an error.');
     }
   }
